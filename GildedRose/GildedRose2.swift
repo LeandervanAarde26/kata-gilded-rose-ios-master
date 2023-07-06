@@ -19,23 +19,31 @@ public class GildedRose{
     public static func nameCheck(item: Item){
         switch item.name {
         case "Backstage passes to a TAFKAL80ETC concert" :
+            item.sellIn -= 1
             if(item.quality < 50){
-                item.quality = item.sellIn < 11 ? item.quality * 2 :
-                item.sellIn < 5 ? item.quality * 3 :
-                item.sellIn <= 0 ? 0:
+                item.quality = item.sellIn < 10 && item.sellIn > 4
+                ? item.quality + 2
+                :item.sellIn < 5 && item.sellIn >= 0
+                ? item.quality + 3
+                : item.sellIn <= 0
+                ? 0 :
                 item.quality + 1
             }
             break
         case "Aged Brie":
-            if(item.quality < 50){
+            if(item.quality <= 50){
                 item.sellIn = item.sellIn - 1
-                item.quality = item.sellIn < 1
-                ? item.quality >= 49
-                ? 50
-                : item.quality + 2
-                : item.quality + 1
+                if(item.quality >= 50){
+                    item.quality = 50
+                } else {
+                    item.quality = item.sellIn < 1
+                    ? item.quality >= 49
+                    ? 50
+                    : item.quality + 2
+                    : item.quality + 1
+                }
             } else{
-                updateQualities(item: item)
+               
             }
             break
         case "Sulfuras, Hand of Ragnaros":
@@ -78,26 +86,3 @@ public class GildedRose{
         }
     }
 }
-
-
-
-
-
-// All names
-
-
-//"Aged Brie"
-// "Backstage passes to a TAFKAL80ETC concert"
-// "Sulfuras, Hand of Ragnaros"
-
-// Sell by
-
-// Less than 6
-// less than 11
-//  less than 0
-
-
-//Qul=ality
-// greater than 50
-// less than 50
-// Exactly equal to 50
